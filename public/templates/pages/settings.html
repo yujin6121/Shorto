@@ -1,0 +1,65 @@
+<div class="card" style="max-width:720px; margin: 0 auto 24px; padding: 32px 24px;">
+  <div class="card-header">
+    <h2>앱 환경 설정</h2>
+  </div>
+  <div class="settings-list">
+    <div class="settings-item flex-between form-group" style="margin-bottom:0;">
+      <div class="settings-label">
+        <strong style="display:block; font-size:15px; margin-bottom:4px;">화면 테마</strong>
+        <span style="font-size:13px; color:var(--text-secondary);">시스템 기본값이나 다크 모드로 테마를 고정할 수 있습니다.</span>
+      </div>
+      <select id="settingTheme" class="form-control" style="width: 140px;">
+        <option value="system">시스템</option>
+        <option value="light">라이트</option>
+        <option value="dark">다크</option>
+      </select>
+    </div>
+
+    <div class="settings-divider"></div>
+    <div class="settings-item flex-between form-group" style="margin-bottom:0;">
+      <div class="settings-label">
+        <strong style="display:block; font-size:15px; margin-bottom:4px;">트랜지션 애니메이션 효과</strong>
+        <span style="font-size:13px; color:var(--text-secondary);">버튼을 움직여 부드러운 애니메이션 효과를 끌 수 있습니다.</span>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="settingAnimation" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="settings-divider"></div>
+    <div class="settings-item flex-between form-group" style="align-items:center; margin-bottom:0;">
+      <div class="settings-label">
+        <strong style="display:block; font-size:15px; margin-bottom:4px;">브라우저 로컬 데이터 정리</strong>
+        <span style="font-size:13px; color:var(--text-secondary);">저장된 설정 등 프론트엔드 캐시를 지웁니다.</span>
+      </div>
+      <button class="btn btn-danger btn-sm" id="settingClearCache" style="flex-shrink:0;">데이터 비우기</button>
+    </div>
+    <div class="settings-divider"></div>
+    <div id="apiKeysSection" class="settings-item" style="margin-top:18px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div>
+          <strong style="display:block; font-size:15px;">API 키 관리</strong>
+          <span style="font-size:13px; color:var(--text-secondary);">웹에서 발급한 API 키로 외부에서 단축 API를 사용할 수 있습니다.</span>
+        </div>
+        <div id="apiAuthControls" style="display:flex; gap:8px; align-items:center;">
+          <button id="showLoginButton" class="btn btn-secondary btn-sm">관리자 로그인</button>
+        </div>
+      </div>
+
+      <div id="apiKeysList" style="margin-top:8px; display:none;">
+        <div style="margin-bottom:8px;"><button id="createApiKeyButton" class="btn btn-primary btn-sm">새 API 키 발급</button></div>
+        <div id="apiKeysContainer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="max-width:720px; margin: 0 auto; padding: 32px 24px;">
+  <div class="card-header">
+    <h2>도메인 설정</h2>
+  </div>
+  <form id="domainForm" class="domain-form" autocomplete="off">
+    <input id="domainInput" type="text" class="form-control" placeholder="예: links.example.com 또는 https://links.example.com">
+    <button type="submit" class="btn btn-primary">추가</button>
+  </form>
+  <div id="domainList" class="domain-list"></div>
+</div>

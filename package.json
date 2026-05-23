@@ -1,0 +1,25 @@
+{
+  "name": "urlshortener",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prestart": "npm run build:ui",
+    "build:ui": "esbuild src/client.ts --outfile=public/app.js --target=es2020",
+    "start": "tsx server.ts",
+    "predev": "npm run build:ui",
+    "dev": "tsx watch server.ts"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "material-components-web": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "esbuild": "^0.28.0",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3"
+  }
+}

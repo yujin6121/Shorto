@@ -1,0 +1,23 @@
+<div class="card-header">
+  <h2>내 링크 <span id="linkCount" class="pill">0</span></h2>
+  <div class="toolbar-controls">
+    <select id="domainFilter" class="form-control">
+      <option value="">전체 도메인</option>
+    </select>
+    <input id="linkSearchInput" type="search" class="form-control" placeholder="링크 검색...">
+  </div>
+</div>
+<div class="card table-wrapper" style="padding:0; overflow:hidden;">
+  <table id="linksTable">
+    <thead>
+      <tr>
+        <th width="30%">짧은 링크</th>
+        <th width="40%">원본 대상</th>
+        <th width="15%">상태</th>
+        <th width="15%">관리</th>
+      </tr>
+    </thead>
+    <tbody id="linksBody"></tbody>
+  </table>
+  <div id="pagination" class="pagination"></div>
+</div>

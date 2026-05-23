@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%%PAGE_TITLE%% - Shorto</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="/assets/app.css">
+  <script>
+    const stored = localStorage.getItem("theme");
+    const theme = stored === "dark" || stored === "light" ? stored : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.dataset.theme = theme;
+  </script>
+</head>
+<body data-page="%%PAGE%%" data-detail-code="%%DETAIL_CODE%%">
+  <div class="app-container">
+    <header class="app-header">
+      <a href="/" class="logo">
+        <span>🔗</span> Shorto
+      </a>
+      <div class="nav-links">
+        <a href="/" class="%%NAV_CREATE_CLASS%%">단축하기</a>
+        <a href="/links" class="%%NAV_LINKS_CLASS%%">대시보드</a>
+        <a href="/logs" class="%%NAV_LOGS_CLASS%%">통계</a>
+        <a href="/settings" class="%%NAV_SETTINGS_CLASS%%">설정</a>
+      </div>
+      <button id="logoutButton" class="btn btn-secondary btn-sm" style="display:none;">로그아웃</button>
+    </header>
+
+    <main id="main">
+      %%MAIN%%
+    </main>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal">
+    <div class="card modal-content" style="margin:20px;">
+      <div class="card-header">
+        <h2>URL 정보 수정</h2>
+        <button id="closeModalButton" class="btn btn-secondary btn-sm" style="padding:0; width:32px;">×</button>
+      </div>
+      <form id="editForm">
+        <input type="hidden" id="editCodeInput">
+        <div class="form-group">
+          <label>새로운 도착 URL</label>
+          <input id="editUrlInput" type="url" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>새로운 만료일 (선택)</label>
+          <input id="editExpiresAtInput" type="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>사용 도메인</label>
+          <div id="editDomainPicker" class="domain-picker"></div>
+        </div>
+        <div style="display:flex; gap:12px; justify-content:flex-end; margin-top:24px;">
+          <button type="button" id="cancelModalButton" class="btn btn-secondary">취소</button>
+          <button type="submit" class="btn btn-primary">변경 저장</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="card modal-content" style="margin:20px; max-width:420px;">
+      <div class="card-header">
+        <h2>관리자 로그인</h2>
+        <button id="closeLoginModal" class="btn btn-secondary btn-sm" style="padding:0; width:32px;">×</button>
+      </div>
+      <form id="adminLoginForm" style="padding:16px;">
+        <div class="form-group">
+          <label>관리자 비밀번호</label>
+          <input id="adminPasswordInput" type="password" class="form-control" placeholder="비밀번호를 입력하세요" required>
+        </div>
+        <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+          <button type="button" id="cancelLoginButton" class="btn btn-secondary">취소</button>
+          <button type="submit" class="btn btn-primary">로그인</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script defer src="/assets/app.js"></script>
+</body>
+</html>

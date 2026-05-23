@@ -1,0 +1,48 @@
+<div class="grid-2">
+  <div class="card">
+    <div class="card-header">
+      <h2>상세 정보 : %%DETAIL_CODE%%</h2>
+      <span id="detailStatus" class="badge">--</span>
+    </div>
+
+    <div class="form-group">
+      <label>짧은 주소</label>
+      <div style="font-size: 16px; font-weight:600;"><a id="detailShortUrl" href="" target="_blank"></a></div>
+    </div>
+    <div class="form-group">
+      <label>도착 주소 (원본)</label>
+      <div id="detailTargetUrl" style="word-break: break-all; color: var(--text-secondary);"></div>
+    </div>
+    <div class="form-group">
+      <label>만료 예정일</label>
+      <div id="detailExpiry" style="font-variant-numeric: tabular-nums;"></div>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-top:24px;">
+      <button data-copy="" class="btn btn-secondary">링크 복사</button>
+      <button data-edit="" class="btn btn-secondary">주소 수정</button>
+      <button id="detailToggleButton" class="btn btn-secondary">사용 중지</button>
+      <button data-delete="" class="btn btn-danger">링크 삭제</button>
+    </div>
+  </div>
+
+  <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+     <h3 style="margin-bottom: 24px; font-size: 16px;">QR 코드 스캔</h3>
+     <div style="padding:16px; background:white; border-radius:12px; margin-bottom:16px;">
+       <img id="detailQr" src="" style="width:160px; height:160px; display:block;">
+     </div>
+     <button data-download-qr="" class="btn btn-secondary btn-sm">이미지 다운로드</button>
+  </div>
+</div>
+
+<div class="card" style="padding:0; overflow:hidden;">
+  <div class="card-header" style="padding: 24px 24px 0 24px;">
+    <h2>해당 링크 통계</h2>
+  </div>
+  <div class="table-wrapper" style="border:none;">
+    <table>
+       <thead><tr><th>시간</th><th>액션</th><th>IP 정보</th><th>User-Agent</th></tr></thead>
+       <tbody id="detailLogsBody"></tbody>
+    </table>
+  </div>
+</div>

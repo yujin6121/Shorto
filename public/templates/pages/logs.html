@@ -1,0 +1,36 @@
+<div class="grid-4" style="margin-bottom:24px;">
+  <div class="metric-card"><span>방문수</span><strong id="metricVisited">0</strong></div>
+  <div class="metric-card"><span>활성 링크</span><strong id="metricCreated">0</strong></div>
+  <div class="metric-card"><span>실패/차단</span><strong id="metricBlocked">0</strong></div>
+  <div class="metric-card"><span>전체 이벤트</span><strong id="metricTotal">0</strong></div>
+</div>
+
+<div class="charts-grid" style="margin-bottom:24px;">
+  <div class="card" style="margin:0;">
+    <div class="card-header"><h2>최근 7일 트래픽</h2></div>
+    <div id="visitChart" class="chart-row"></div>
+  </div>
+  <div class="card" style="margin:0;">
+    <div class="card-header"><h2>주요 유입 기기</h2></div>
+    <div id="deviceChart"></div>
+  </div>
+</div>
+
+<div class="card" style="padding:0; overflow:hidden;">
+  <div class="card-header" style="padding: 24px 24px 0 24px;">
+    <h2>이벤트 로그</h2>
+    <select id="logFilter" class="form-control" style="width:140px; height:36px;">
+      <option value="all">전체</option>
+      <option value="visited">접속 성공</option>
+      <option value="blocked">접속 실패</option>
+      <option value="admin">관리 기록</option>
+    </select>
+  </div>
+  <div class="table-wrapper" style="border:none;">
+    <table>
+       <thead><tr><th>시간</th><th>액션</th><th>코드</th><th>IP / 기타정보</th></tr></thead>
+       <tbody id="logsBody"></tbody>
+    </table>
+    <div id="logsPagination" class="pagination"></div>
+  </div>
+</div>
