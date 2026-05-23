@@ -6,8 +6,10 @@ services:
     image: urlshortener:latest
     ports:
       - "3000:3000"
+      - "3001:3001"
     environment:
       - PORT=3000
+      - REDIRECT_PORT=3001
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     volumes:
       - ./data/app:/app/data/app

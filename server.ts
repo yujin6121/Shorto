@@ -9,7 +9,8 @@ import { appPage, escapeHtml, messagePage } from "./src/pages_templates.js";
 import { linksList, logEvent, logsForCode, makeCode, readDb, statusOf, writeDb } from "./src/store.js";
 import { normalizeCode, normalizeDomain, normalizeExpiresAt, normalizeUrl } from "./src/validation.js";
 
-const PORT = Number(process.env.PORT || 3000);
+const UI_PORT = Number(process.env.PORT || 3000);
+const REDIRECT_PORT = Number(process.env.REDIRECT_PORT || 3001);
 const PUBLIC_DIR = join(process.cwd(), "public");
 const NODE_MODULES_DIR = join(process.cwd(), "node_modules");
 
@@ -62,8 +63,12 @@ try {
 
 const ADMIN_PW_HASH = process.env.ADMIN_PASSWORD ? hashPassword(process.env.ADMIN_PASSWORD) : null;
 
+function redirectBaseUrl(req) {
+  return publicBaseUrl(req, REDIRECT_PORT, true);
+}
+
 function configuredDomains(db, req) {
-  return uniq([publicBaseUrl(req, PORT), ...(db.domains || [])]);
+  return uniq([redirectBaseUrl(req), ...(db.domains || [])]);
 }
 
 function defaultDomain(db, req) {
@@ -100,7 +105,7 @@ function shortUrlFor(domain, code) {
 }
 
 function decorateLink(link, req) {
-  const domains = link.domains?.length ? link.domains : [link.domain || publicBaseUrl(req, PORT)];
+  const domains = link.domains?.length ? link.domains : [link.domain || redirectBaseUrl(req)];
   const shortUrls = domains.map((domain) => shortUrlFor(domain, link.code));
   return {
     ...link,
@@ -548,7 +553,7 @@ async function handleAddDomain(req, res) {
 async function handleDeleteDomain(req, res, domainValue) {
   const domain = normalizeDomain(domainValue);
   const db = await readDb();
-  if (domain === publicBaseUrl(req, PORT)) {
+  if (domain === redirectBaseUrl(req)) {
     sendJson(res, 400, { error: "현재 접속 중인 도메인은 삭제할 수 없습니다." });
     return;
   }
@@ -723,7 +728,7 @@ async function handleQrProxy(req, res, urlObj) {
   }
 }
 
-const server = createServer(async (req, res) => {
+const uiServer = createServer(async (req, res) => {
   try {
     const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
     const linkMatch = url.pathname.match(/^\/api\/links\/([^/]+)$/);
@@ -905,6 +910,16 @@ const server = createServer(async (req, res) => {
       return;
     }
 
+    sendNotFound(res);
+  } catch (error) {
+    console.error(error);
+    sendJson(res, 500, { error: "서버에서 문제가 생겼어요." });
+  }
+});
+
+const redirectServer = createServer(async (req, res) => {
+  try {
+    const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
     if (req.method === "GET" && url.pathname.startsWith("/s/")) {
       const code = safeDecode(url.pathname.slice(3));
       if (!code) {
@@ -914,7 +929,6 @@ const server = createServer(async (req, res) => {
       await handleRedirect(req, res, code);
       return;
     }
-
     sendNotFound(res);
   } catch (error) {
     console.error(error);
@@ -922,6 +936,10 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`Shorto running at http://localhost:${PORT}`);
+uiServer.listen(UI_PORT, () => {
+  console.log(`Shorto console running at http://localhost:${UI_PORT}`);
+});
+
+redirectServer.listen(REDIRECT_PORT, () => {
+  console.log(`Shorto redirect running at http://localhost:${REDIRECT_PORT}`);
 });

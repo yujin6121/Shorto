@@ -36,10 +36,16 @@ export function getClientIp(req) {
   return req.socket.remoteAddress || "";
 }
 
-export function publicBaseUrl(req, port) {
+export function publicBaseUrl(req, port, forcePort = false) {
   const proto = req.headers["x-forwarded-proto"] || "http";
   const host = req.headers.host || `localhost:${port}`;
-  return `${proto}://${host}`;
+  if (!forcePort) return `${proto}://${host}`;
+  try {
+    const url = new URL(`${proto}://${host}`);
+    return `${proto}://${url.hostname}:${port}`;
+  } catch {
+    return `${proto}://${host}`;
+  }
 }
 
 export function parseDevice(userAgent) {
