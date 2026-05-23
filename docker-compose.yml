@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  urlshortener:
+  Shorto:
     build: .
-    image: urlshortener:latest
+    image: Shorto:latest
     ports:
       - "3000:3000"
       - "3001:3001"
