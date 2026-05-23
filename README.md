@@ -79,4 +79,3 @@ docker-compose down
 ```
 
 데이터는 호스트의 `./data/app`에 저장됩니다.
-# Shorto
